@@ -1,6 +1,8 @@
 # aerpaw_drone_corridor_IEEE
 Drone corridor docker experiment code
 
+The code was developed by John Kesler (jckesle2@ncsu.edu) and was migrated from the NCSU github (github.ncsu.edu) to this repository.
+
 Air corridors are considered as a promising solution to traffic management of a large number of aircrafts (both manned and unmanned). To enable such a system, we developped an emulation of an air corridor system based on a software in the loop (SITL) from ArduPilot (a popular open source autopilot).
 
 In this demonstration, several UAVs are instructed to take-off and cross through a relatively narrow air corridor (only one UAV can pass through safely at a time). To make things interesting, after the UAVs start to pass through the corridor, the corridor is externally closed (and the UAVs are informed), and an alternate corridor is opened. The demo shows how the UAVs re-route through the new corridor.
