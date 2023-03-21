@@ -1,6 +1,6 @@
 ## implementation
 
-This is implementing using a block system.
+This is implemented using a block system.
 The controlled airspace is defined using a center coordinate, and a size for each block.
 Each block only allows one drone to occupy it, and drones must request permission to move into adjacent blocks.
 The central controller ensures that every block adjacent to a drone is cleared out.
