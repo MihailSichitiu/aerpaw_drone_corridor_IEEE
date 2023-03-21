@@ -1,8 +1,0 @@
-[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = true
-[remote "origin"]
-	url = https://github.ncsu.edu/jckesle2/aerpaw-drone-corridor
-	fetch = +refs/*:refs/*
-	mirror = true

@@ -1,0 +1,93 @@
+version: "3.9"
+
+services:
+  sitl:
+    image: radarku/sitl-swarm
+    ports:
+      - 5770:5770
+      - 5780:5780
+      - 5790:5790
+      - 5800:5800
+    environment:
+      - INSTANCE=1
+      - NUMCOPTERS=5
+      - LAT=35.728554
+      - INCREMENTSTEPLAT=0.0000
+      - LON=-78.696494
+      - INCREMENTSTEPLON=0.0003
+      - ALT=0
+
+  ground-service:
+    build:
+      dockerfile: ./ground/Dockerfile
+      context: ./
+    ports:
+      - 8080:8080
+
+  drone-1:
+    build:
+      dockerfile: ./drone/Dockerfile
+      context: ./
+    ports:
+      - 14551:5762
+    environment:
+      - PORT=5770
+      - GROUNDPORT=5761
+      - MAVHOST=:5761
+      - DRONEID=drone1
+      - SYSID=241
+      - TARGETCOORD=35.727052,-78.696694
+    depends_on:
+      - sitl
+    command: ["./wait-for-it.sh", "--timeout=0", "sitl:5770", "--", "./drone/start.sh"]
+
+  drone-2:
+    build:
+      dockerfile: ./drone/Dockerfile
+      context: ./
+    ports:
+      - 14552:5762
+    environment:
+      - PORT=5780
+      - GROUNDPORT=5762
+      - MAVHOST=:5762
+      - DRONEID=drone2
+      - SYSID=242
+      - TARGETCOORD=35.727052,-78.696294
+    depends_on:
+      - sitl
+    command: ["./wait-for-it.sh", "--timeout=0", "sitl:5780", "--", "./drone/start.sh"]
+  
+  drone-3:
+    build:
+      dockerfile: ./drone/Dockerfile
+      context: ./
+    ports:
+      - 14553:5762
+    environment:
+      - PORT=5790
+      - GROUNDPORT=5763
+      - MAVHOST=:5763
+      - DRONEID=drone3
+      - SYSID=243
+      - TARGETCOORD=35.727052,-78.696494
+    depends_on:
+      - sitl
+    command: ["./wait-for-it.sh", "--timeout=0", "sitl:5790", "--", "./drone/start.sh"]
+  
+  drone-4:
+    build:
+      dockerfile: ./drone/Dockerfile
+      context: ./
+    ports:
+      - 14554:5762
+    environment:
+      - PORT=5800
+      - GROUNDPORT=5764
+      - MAVHOST=:5764
+      - DRONEID=drone4
+      - SYSID=244
+      - TARGETCOORD=35.727052,-78.696094
+    depends_on:
+      - sitl
+    command: ["./wait-for-it.sh", "--timeout=0", "sitl:5800", "--", "./drone/start.sh"]
